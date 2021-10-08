@@ -4,6 +4,7 @@ import ContentHeader from "../../components/ContentHeader";
 import SelectInput from "../../components/SelectInput";
 import WalletBox from "../../components/WalletBox";
 import MessageBox from "../../components/MessageBox";
+import PieChart from "../../components/PieChart";
 
 import listOfMonths from "../../utils/months";
 
@@ -95,7 +96,7 @@ const Dashboard: React.FC = () => {
   }, [totalGains, totalExpenses]);
 
   const message = useMemo(() => {
-    if (totalExpenses == 0 && totalGains == 0) {
+    if (totalExpenses === 0 && totalGains === 0) {
       return {
         title: "Olha!",
         description:
@@ -182,6 +183,7 @@ const Dashboard: React.FC = () => {
           footerText={message.footerText}
           icon={message.icon}
         />
+        <PieChart />
       </Content>
     </Container>
   );
