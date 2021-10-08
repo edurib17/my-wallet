@@ -1,5 +1,5 @@
 import React from "react";
-//*import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";*/
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 import {
   Container,
@@ -9,35 +9,40 @@ import {
   SideRight,
 } from "./styles";
 
-const PieChart: React.FC = () => (
+interface IPieChartProps {
+  data: {
+    name: string;
+    value: number;
+    percent: number;
+    color: string;
+  }[];
+}
+
+const PieChartBox: React.FC<IPieChartProps> = ({ data }) => (
   <Container>
     <SideLeft>
       <h2>Relação</h2>
       <LegendContainer>
-        <Legend color="#F7931B">
-          <div>95%</div>
-          <span>Entradas</span>
-        </Legend>
-        <Legend color="#E44C4E">
-          <div>10%</div>
-          <span>Saídas</span>
-        </Legend>
+        {data.map((indicator) => (
+          <Legend key={indicator.name} color={indicator.color}>
+            <div>{indicator.percent}%</div>
+            <span>{indicator.name}</span>
+          </Legend>
+        ))}
       </LegendContainer>
     </SideLeft>
     <SideRight>
-      {/*<ResponsiveContainer>
+      <ResponsiveContainer>
         <PieChart>
-          <Pie
-            data={[{ amount: 30, percent: 95 }]}
-            labelLine={false}
-            dataKey="percent"
-          >
-              {}
+          <Pie data={data} dataKey="percent">
+            {data.map((indicator) => (
+              <Cell key={indicator.name} fill={indicator.color} />
+            ))}
           </Pie>
         </PieChart>
-      </ResponsiveContainer>*/}
+      </ResponsiveContainer>
     </SideRight>
   </Container>
 );
 
-export default PieChart;
+export default PieChartBox;
