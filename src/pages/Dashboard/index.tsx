@@ -100,10 +100,10 @@ const Dashboard: React.FC = () => {
   const message = useMemo(() => {
     if (totalExpenses === 0 && totalGains === 0) {
       return {
-        title: "Olha!",
+        title: "Ops!",
         description:
-          "Neste mês, você ainda não lançou nenhuma entrada ou saída .",
-        footerText: "Atualize sua carteira!!",
+          "Neste mês, não há registros de entradas ou saídas .",
+        footerText: "Parece que você não fez nenhum registro no mês e ano selecionado!!",
         icon: grinning,
       };
     }
@@ -125,27 +125,30 @@ const Dashboard: React.FC = () => {
     }
   }, [totalBalance, totalGains, totalExpenses]);
 
-  const relationExpensesVerusGains = useMemo(() => {
+  const relationExpensesVersusGains = useMemo(() => {
     const total = totalGains + totalExpenses;
-    const percentGains = (totalGains / total) * 100;
-    const percentExpenses = (totalExpenses / total) * 100;
+
+    const percentGains = Number(((totalGains / total) * 100).toFixed(1));
+    const percentExpenses = Number(((totalExpenses / total) * 100).toFixed(1));
 
     const data = [
-      {
-        name: "Entradas",
-        value: totalExpenses,
-        percent: percentGains > 0 ? Number(percentGains.toFixed(1)) : 0,
-        color: "#E44C4E",
-      },
-      {
-        name: "Saídas",
-        value: totalExpenses,
-        percent: percentExpenses > 0 ? Number(percentExpenses.toFixed(1)) : 0,
-        color: "#F7931B",
-      },
+        {
+            name: "Entradas",
+            value: totalGains,
+            percent: percentGains ? percentGains : 0, 
+            color: '#E44C4E'
+        },
+        {
+            name: "Saídas",
+            value: totalExpenses,
+            percent: percentExpenses ? percentExpenses : 0, 
+            color: '#F7931B'
+        },
     ];
+
     return data;
-  }, [totalGains, totalExpenses]);
+},[totalGains, totalExpenses]);
+
   const relationExpensevesRecurrentVersusEventual = useMemo(() => {
     let amountRecurrent = 0;
     let amountEventual = 0;
@@ -348,7 +351,7 @@ const Dashboard: React.FC = () => {
           footerText={message.footerText}
           icon={message.icon}
         />
-        <PieChartBox data={relationExpensesVerusGains} />
+        <PieChartBox data={relationExpensesVersusGains} />
         <HistoryBox
           data={historyData}
           lineColorAmountEntry="#F7931B"
