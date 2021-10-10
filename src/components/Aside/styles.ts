@@ -28,6 +28,7 @@ export const MenuContainer = styled.nav`
   flex-direction: column;
   margin-top: 50px;
 `;
+
 export const MenuItemLink = styled.a`
   color: ${(props) => props.theme.colors.info};
   margin: 7px 0;
@@ -39,8 +40,27 @@ export const MenuItemLink = styled.a`
   &:hover {
     opacity: 0.7;
   }
-  >svg {
-     font-size: 18px;
-     margin-right: 5px;
+  > svg {
+    font-size: 18px;
+    margin-right: 5px;
+  }
+`;
+
+export const MenuItemButton = styled.a`
+  color: ${(props) => props.theme.colors.info};
+  margin: 7px 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  border: 0;
+  background-color: none;
+  transition: opacity 0.3s;
+  &:hover {
+    opacity: 0.7;
+  }
+  > svg {
+    font-size: 18px;
+    margin-right: 5px;
   }
 `;
